@@ -1,0 +1,292 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<hea>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</hea form input {
+        width: 100%;
+        padding: 5px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }d>
+<style>
+    body{
+        background-color: pink;
+    }
+    #container{
+        width:500px;
+        margin: 0 auto;
+    }
+    h1{
+        text-align: center;
+        text-decoration: underline;
+    }
+    form{
+        max-width: 500px;
+        margin:10px auto;
+        padding:10px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    form label {
+        display: block;
+        margin: 10px 0 5px;
+        font-weight: bold;
+        font-size: 16px;
+    }
+   
+    form button{
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+    form button:hover {
+        background-color: #45a049;
+    }
+    #responseMessage{
+        margin-top: 10px;
+        font-size: 30px;
+        color: #d9534f;
+        font-weight: bold;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<body>
+    <div id="container">
+        <h1>Add Task</h1>
+        <form id="taskForm">
+            <label for=" title">Title</label>
+            <input type="text" id="title" name="title" placeholder="Title" required/>
+            <label for="description">Description</label>
+            <input type="text" placeholder="Description" id="description" name="description" required/>
+            <label for="priority">Priority</label>
+            <input type="text" id="priority" name="priority" placeholder="Priority"/>
+            <label for="status">Status</label>
+            <input type="text" id="status" name="status" placeholder="Category">
+            <label for="category">Category</label>
+            <input type="text" id="category" name="category" placeholder="Category" required/>
+            <label for=" completed">Completed</label>
+            <input type="text" id="completed" name="completed" placeholder="Completed" required/>
+            <button type="submit">Add Task</button>
+        </form>
+        <p id="responseMessage"></p>
+    </div> 
+    <script>
+        document.getElementById("taskForm").addEventListener("submit", addTaskForm);
+        const message=document.getElementById("responseMessage");
+        async function addTaskForm(e){
+            e.preventDefault();
+            const token = localStorage.getItem("authMiddleware")?.trim();
+            if (!token) {
+                console.log("No token found, please log in again.");
+                message.textContent = "No token provided. Please log in first.";
+                return;
+            }
+            console.log("Using Token:", token);
+            const data={
+                title:document.getElementById("title").value,
+                description:document.getElementById("description").value,
+                priority:document.getElementById('priority').value,
+                status:document.getElementById('status').value,
+                completed:document.getElementById("completed").value.toLowerCase() === "true",
+                category:document.getElementById("category").value
+            };
+            try{
+                const response = await fetch("http://localhost:3000/users/tasks", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+                const result= await response.json();
+                if(response.ok){
+                    message.textContent=result.message;
+                    message.style.color="green"
+                }else{
+                    message.textContent=result.message || "Something went wrong";
+                    message.style.color="red";
+                }  
+            }catch(err){
+                message.textContent="Error occured during adding task" + err.message;
+            }
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="task.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <section class="header">
+        <h3>Task Management</h3>
+        <ul>
+            <a href="Home.html"><li>Home</li></a>
+            <a href="About.html"><li>About Us</li></a>
+            <a href="Contact.html"><li>Contact</li></a>
+            <a href="task.html"><li>Task</li></a>
+            <a href="getTask.html"><li>Get Task</li></a>
+            <a href="adminTask.html"><li>AdminTask</li></a>
+        </ul>
+        <div class="button">
+            <button class="btn_1"><a href="Sign-In.html">Sign In</a></button>
+            <button class="btn_2"><a href="Sign-Up.html">Sign Up</a></button>
+        </div>
+    </section>
+    <section class="login-page">
+        <div class="access">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRH3USUjA13FEw6gL2K_CKo6JJtTm1hu53kQ&s" alt=""/>
+            <div class="sign-in">
+                <h1>Add Tasks</h1>
+                <p>Access your account.</p>
+                <form id="taskForm">
+                    <div class="input-row">
+                        <div>
+                             <label for=" title">Title</label>
+                             <input type="text" id="title" name="title" placeholder="Title" required/>
+                        </div>
+                        <div>
+                            <label for="description">Description</label>
+                            <input type="text" placeholder="Description" id="description" name="description" required/>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div>
+                            <label for="priority">Priority</label>
+                            <input type="text" id="priority" name="priority" placeholder="Priority"/>
+                        </div>
+                        <div>
+                            <label for="status">Status</label>
+                            <input type="text" id="status" name="status" placeholder="Category">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div>
+                            <label for="category">Category</label>
+                            <input type="text" id="category" name="category" placeholder="Category" required/>
+                        </div>
+                        <div>
+                            <label for=" completed">Completed</label>
+                            <input type="text" id="completed" name="completed" placeholder="Completed" required/>
+                        </div>
+                    </div>
+                    <button type="submit">Add Task</button> 
+                </form>
+                <p id="signupResponse"></p>
+                <p id="para">If you don't have an account? <span><a href="./sign-up.html">Ragister</a></span></p>
+                <p><input type="checkbox">I want to receive emails about events, product updates, and company announcements.</p>
+                <a href="https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?response_type=code&client_id=947255621914-38ikf80821sh1irc0lqq0o097q6bugjc.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Ftask-management-dnd.firebaseapp.com%2F__%2Fauth%2Fhandler" target="_blank">
+                    <button type="button"><i class="fa-brands fa-google"></i> Login with Google</button>
+                <span><button class="btn"><a href="./sign-up.html">Creat an account </a></button>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-link">
+            <ul>
+                <li>Shop</li>
+                <li>About</li>
+                <li>Blog</li>
+                <li>Pricing</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+        <div class="">
+            <span>@2023-Task Management: all rights reserved by Fazlul Karim</span>
+        </div>
+        <div class="icon">
+            <a href="https://www.codechef.com/users/priya_shukla" target="_blank"><i class="fa-brands fa-codepen"></i></a>
+            <a href="https://www.linkedin.com/in/priya-shukla-b0a943280/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://twitter.com/home?lang=en"><i class="fa-brands fa-twitter" target="_blank"></i></a>
+            <a href="https://github.com/priyashukla622"><i class="fa-brands fa-github" target="_blank"></i></a>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("taskForm").addEventListener("submit", submitLogin);
+        });
+        const message = document.getElementById("signupResponse");
+        async function submitLogin(e) {
+            e.preventDefault();  
+            const token=localStorage.getItem("authMiddleware");
+            if(!token){
+                console.log("No token found,please login again")
+                message.textContent="No token provided please login first";
+                return;
+            }
+            console.log("using token:", token);
+            const data = {
+                title:document.getElementById("title").value,
+                description: document.getElementById("description").value,
+                priority: document.getElementById("priority").value,
+                status: document.getElementById("status").value,
+                category: document.getElementById("category").value,
+                completed: document.getElementById("completed").value
+            };
+            try {
+                const response = await fetch("http://localhost:3000/users/tasks",{
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                         "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                console.log("Response Status:", response.status);
+                console.log("Response Data:", result);
+                if (response.ok) {
+                    message.textContent = "Task Added successfully";
+                    alert("Task Added successfully")
+                    message.style.color = "green"; 
+                } else {
+                    message.textContent = result.message;
+                    message.style.color = "red";
+                }
+            } catch (error) {
+                console.error("Login Error:", error);
+                message.textContent = "Error during login. Please try again!";
+                message.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,194 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin Dashboard</title>
+</head>
+<body>
+  <h2>Admin Dashboard</h2>
+  <div id="dashboard"></div>
+  <button onclick="logout()">Logout</button>
+  <script>
+    async function fetchAdminTasks() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Unauthorized! Please login.");
+        window.location.href = "index.html";
+        return;
+      }
+      const res = await fetch("http://localhost:4000/users/all-tasks", {
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      const tasks = await res.json();
+      let taskListHTML = "<h3>All User Tasks:</h3><ul>";
+      tasks.forEach(task => {
+        taskListHTML += `<li><strong>${task.title}</strong>: ${task.description} <br> <small>Created By: ${task.createdBy}</small></li>`;
+      });
+      taskListHTML += "</ul>";
+      document.getElementById("dashboard").innerHTML = taskListHTML;
+    }
+    function logout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
+      window.location.href = "index.html";
+    }
+    fetchAdminTasks();
+  </script>
+</body>
+</html> -->
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin Dashboard</title>
+</head>
+<body onload="fetchAdminTasks()">
+  <h2>Admin Dashboard</h2>
+  <div id="dashboard"></div>
+  <button onclick="logout()">Logout</button>
+
+  <script>
+    async function fetchAdminTasks() {
+      console.log("Fetching All User Tasks...");
+      const token = localStorage.getItem("token");
+      const role = localStorage.getItem("role");
+    
+      if (!token || role !== "admin") {
+        alert("Unauthorized! Redirecting to login...");
+        window.location.href = "./index.html";
+        return;
+      }
+    
+      try {
+        const res = await fetch("http://localhost:4000/users/user-tasks", {
+          headers: { 
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
+    
+        console.log("API Response Status:", res.status);
+        if (!res.ok) {
+          throw new Error(`Error ${res.status}: ${res.statusText}`);
+        }
+    
+        const tasks = await res.json();
+        console.log("API Response Data:", tasks);
+    
+        if (!Array.isArray(tasks) || tasks.length === 0) {
+          console.log("No tasks found.");
+          document.getElementById("dashboard").innerHTML = "<h3>No tasks found.</h3>";
+          return;
+        }
+    
+        let taskListHTML = "<h3>All User Tasks:</h3><ul>";
+        tasks.forEach(task => {
+          let createdBy = task.createdBy ? (task.createdBy.email || task.createdBy.name || "Unknown") : "Unknown";
+          taskListHTML += `
+            <li>
+              <strong>Title:</strong> ${task.title || "N/A"} <br>
+              <strong>Description:</strong> ${task.description || "N/A"} <br>
+              <strong>Priority:</strong> ${task.priority || "N/A"} <br>
+              <strong>Status:</strong> ${task.status || "N/A"} <br>
+              <strong>Completed:</strong> ${task.completed ? "✅ Yes" : "❌ No"} <br>
+              <strong>Category:</strong> ${task.category || "N/A"} <br>
+              <small><strong>Created By:</strong> ${createdBy}</small>
+              <hr>
+            </li>
+          `;
+        });
+    
+        taskListHTML += "</ul>";
+    
+        // ✅ Ensure Correct Rendering
+        const dashboard = document.getElementById("dashboard");
+        console.log("Final Rendered HTML:", taskListHTML);
+    
+        dashboard.innerHTML = taskListHTML;  // ✅ Fix the rendering issue
+        dashboard.style.display = "block";  // ✅ Ensure it's visible
+    
+      } catch (error) {
+        console.error("Error Fetching Admin Tasks:", error);
+        document.getElementById("dashboard").innerHTML = `<h3>Error loading tasks</h3>`;
+      }
+    }    
+  </script>
+</body>
+</html> -->
+
+
+
+
+<!-- new code for admin -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin Dashboard</title>
+</head>
+<body>
+  <h2>Admin Dashboard</h2>
+  <div id="dashboard"></div>
+  <button onclick="logout()">Logout</button>
+  <script>
+    async function fetchAdminTasks() {
+      console.log("Fetching tasks function called...");
+    
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("Token missing! Redirecting to login...");
+        console.log("LocalStorage Token:", localStorage.getItem("token"));
+        alert("Unauthorized! Please login.");
+        window.location.href = "./index.html";
+        return;
+      }
+    
+      try {
+        console.log("Sending API request...");
+        const res = await fetch("http://localhost:4000/users/all-tasks", {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
+    
+        console.log("Response Status:", res.status);
+    
+        const data = await res.json();
+        console.log("Full API Response:", data);
+    
+        if (!data || !Array.isArray(data.tasks)) {
+          console.error("Unexpected API response:", data);
+          document.getElementById("dashboard").innerHTML = "<h3>Error: Invalid API response</h3>";
+          return;
+        }
+    
+        let taskListHTML = "<h3>All User Tasks:</h3><ul>";
+        data.tasks.forEach(task => {
+          taskListHTML += `<li>
+            <strong>Title:</strong> ${task.title} <br>
+            <strong>Description:</strong> ${task.description} <br>
+            <strong>Priority:</strong> ${task.priority} <br>
+            <strong>Status:</strong> ${task.status} <br>
+            <strong>Completed:</strong> ${task.completed ? "true" : "false"} <br>
+            <strong>Category:</strong> ${task.category} 
+            <hr>
+          </li>`;
+        });
+        taskListHTML += "</ul>";
+    
+        document.getElementById("dashboard").innerHTML = taskListHTML;
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+        document.getElementById("dashboard").innerHTML = "<h3>Error loading tasks</h3>";
+      }
+    }
+    window.onload = () => {
+      console.log("Window loaded, calling fetchAdminTasks...");
+      fetchAdminTasks();
+    };
+    
+  </script>
+</body>
+</html>

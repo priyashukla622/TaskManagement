@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="Sign-Up.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <section class="header">
+        <h3>Task Management</h3>
+        <ul>
+            <a href="Home.html"><li>Home</li></a>
+            <a href="About.html"><li>About Us</li></a>
+            <a href="Contact.html"><li>Contact</li></a>
+            <a href="task.html"><li>Task</li></a>
+            <a href="getTask.html"><li>Get Task</li></a>
+            <a href="adminTask.html"><li>AdminTask</li></a>
+        </ul>
+        <div class="button">
+            <button class="btn_1"><a href="sign-in.html">Sign In</a></button>
+            <button class="btn_2"><a href="sign-up.html">Sign Up</a></button>
+        </div>
+    </section>
+    <section class="login-page">
+        <div class="access">
+            <div class="sign-in">
+                <h1>Create a new account here.</h1>
+                <p>You can access many features by creating new accounts and also explore the dashboard.</p>
+                <form id="registerForm">
+                    <div class="input-row">
+                        <div>
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="username" placeholder="Full Name" required>
+                        </div>
+                        <div>
+                            <label for="contact">Contact</label>
+                            <input type="text" id="contact" name="contact" placeholder="Contact" required>
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div>
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Email" required>
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Password" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="role">Role</label>
+                        <select id="role" name="role" required>
+                            <option value="" disabled selected>Select Role</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </div>
+                    <button type="submit">Register</button>
+                </form>
+                <p id="signupResponse"></p>
+                <p id="para">Already have an account? <span><a href="./sing-in.html">Login</a></span></p>
+
+                <p><input type="checkbox"> I want to receive emails about events, product updates, and company announcements.</p>
+                <a href="https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?response_type=code&client_id=947255621914-38ikf80821sh1irc0lqq0o097q6bugjc.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Ftask-management-dnd.firebaseapp.com%2F__%2Fauth%2Fhandler&state=AMbdmDn7_HxpQzKOsP63b29SUIkCi2nEhPnYZF4U4f19GjlihZE8HckgSG9Iyqfj9xLBVCSZ4tGVW2zd2F4zCRPEUCIury24sdeaOAm0s4SPMCmPNsBq8vSXmOKFsRqh3A8vO98nh4EFR6oPz8OQE7TaXB-b_FPZPYu1ULiKirApV8yXBJtJZxtL0MHtSfN4AuFc_B4YAuPOsDxBO_X0_Tfu289px6w-4bPHUonEHWpQ91mbjJHtWqJO_GWRjgGwe4o405yvV5Ot7zsiYQHv4r-HDbtZ4XGS71-WAF6Xc0NBAiHKEGEG6V2M5IKpcDXq5nC8hDJzWWMDEKGnOPg&scope=openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20profile&context_uri=https%3A%2F%2Ftask-management-ruby-psi.vercel.app&service=lso&o2v=1&ddm=1&flowName=GeneralOAuthFlow" target="_blank""><button><i  class="fa-brands fa-google"></i> Login with google</button></i></a>
+                <span><button class="btn"><a href="./sign-up.html">Creat an account </a></button>
+            </div>
+            <div class="image">
+                <img src="https://task-management-ruby-psi.vercel.app/assets/signup-RrT0xnSA.jpg" alt="">
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-link">
+            <ul>
+                <li>Shop</li>
+                <li>About</li>
+                <li>Blog</li>
+                <li>Pricing</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+        <div class="">
+            <span>@2023-Task Management: All rights reserved by Fazlul Karim</span>
+        </div>
+        <div class="icon">
+            <a href="https://www.codechef.com/users/priya_shukla" target="_blank"><i class="fa-brands fa-codepen"></i></a>
+            <a href="https://www.linkedin.com/in/priya-shukla-b0a943280/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://twitter.com/home?lang=en" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://github.com/priyashukla622" target="_blank"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        const message = document.getElementById("signupResponse");
+
+async function signupUser(e) {
+    e.preventDefault();
+    const username = document.getElementById("name").value;
+    const email = document.getElementById("email").value; 
+    const password = document.getElementById("password").value;
+    const contact = document.getElementById("contact").value;
+    const role = document.getElementById("role").value;
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        message.textContent = "Please enter a valid email address!";
+        message.style.color = "red";
+        return; 
+    }
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+        message.textContent = "Password must be at least 6 characters long and contain a number and a special character.";
+        message.style.color = "red";
+        return; 
+    }
+    const contactRegex = /^[0-9]{10}$/;
+    if (!contactRegex.test(contact)) {
+        message.textContent = "Please enter a valid 10-digit contact number!";
+        message.style.color = "red";
+        return;
+    }
+    if (!role || (role !== "user" && role !== "admin")) {
+        message.textContent = "Please select a valid role.";
+        message.style.color = "red";
+        return;
+    }
+    const data = {
+        username,
+        email,
+        password,
+        contact, 
+        role
+    };
+    try {
+        const response = await fetch("http://localhost:3000/users/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+        const result = await response.json();
+        if (response.ok) {
+            message.textContent = result.message;
+            message.style.color = "green"; 
+            document.getElementById("registerForm").reset();
+        } else {
+            message.textContent = (result.message || "Signup failed!");
+            message.style.color = "red";  
+        }
+    } catch(error) {
+        console.log(error);
+        message.textContent = error.message || "Error during signup";
+        message.style.color = "red";
+    }
+}
+        document.getElementById("registerForm").addEventListener("submit", signupUser);
+    
+    </script>
+</body>
+</html>
