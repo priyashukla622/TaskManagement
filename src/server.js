@@ -32,19 +32,27 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config(); 
-
 const app = express();
 const userRouter = require("./routes/userRouter");
 const path = require("path");
 
 const port = process.env.PORT;
 const mongoURI = process.env.MONGODB_URL;
-console.log("mongodb connected successfully")
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+//     serverSelectionTimeoutMS: 50000, 
+//     connectTimeoutMS: 60000,
+}).then(() => {
+    console.log("MongoDB Connected Successfully!");
+    console.log("MongoDB URI:", process.env.MONGODB_URL);
 
-if (!mongoURI) {
-  console.error("MongoDB URI is not defined in .env file");
-  process.exit(1);
-}
+}).catch((err) => {
+    console.error("MongoDB Connection Error:", err);
+});
+mongoose.set("bufferCommands", false);
+
+
 app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
