@@ -237,16 +237,21 @@ const getUserTasks = async (req, res) => {
 };
 const getAllTasks = async (req, res) => {
     try {
-        console.log("API started"); // ✅ Dekho API call ho rahi ya nahi
+        console.log("API started"); 
         console.log("Decoded User in Admin API:", req.user);
-
         if (req.user.role !== "admin") {
             return res.status(403).json({ message: "Access denied. Admins only." });
         }
 
-        console.log("Fetching tasks..."); // ✅ Ye line execute ho rahi ya nahi?
-        const tasks = await Task.find().lean().populate("userId", "email"); 
-        console.log("Fetched Admin Tasks:", tasks); // ✅ Koi slow query toh nahi?
+        console.log("Fetching tasks..."); 
+        const tasks = await Task.find().populate("userId", "email"); 
+
+        if (!tasks || tasks.length === 0) {
+            console.log("No tasks found in database.");
+            return res.status(404).json({ message: "No tasks available." });
+        }
+
+        console.log("Fetched Admin Tasks:", tasks); 
 
         res.status(200).json({ tasks });
     } catch (error) {

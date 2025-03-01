@@ -1,138 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<hea>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</hea form input {
-        width: 100%;
-        padding: 5px;
-        margin: 5px 0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 14px;
-    }d>
-<style>
-    body{
-        background-color: pink;
-    }
-    #container{
-        width:500px;
-        margin: 0 auto;
-    }
-    h1{
-        text-align: center;
-        text-decoration: underline;
-    }
-    form{
-        max-width: 500px;
-        margin:10px auto;
-        padding:10px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-    form label {
-        display: block;
-        margin: 10px 0 5px;
-        font-weight: bold;
-        font-size: 16px;
-    }
-   
-    form button{
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 10px;
-        transition: background-color 0.3s ease;
-    }
-    form button:hover {
-        background-color: #45a049;
-    }
-    #responseMessage{
-        margin-top: 10px;
-        font-size: 30px;
-        color: #d9534f;
-        font-weight: bold;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-    }
-</style>
-<body>
-    <div id="container">
-        <h1>Add Task</h1>
-        <form id="taskForm">
-            <label for=" title">Title</label>
-            <input type="text" id="title" name="title" placeholder="Title" required/>
-            <label for="description">Description</label>
-            <input type="text" placeholder="Description" id="description" name="description" required/>
-            <label for="priority">Priority</label>
-            <input type="text" id="priority" name="priority" placeholder="Priority"/>
-            <label for="status">Status</label>
-            <input type="text" id="status" name="status" placeholder="Category">
-            <label for="category">Category</label>
-            <input type="text" id="category" name="category" placeholder="Category" required/>
-            <label for=" completed">Completed</label>
-            <input type="text" id="completed" name="completed" placeholder="Completed" required/>
-            <button type="submit">Add Task</button>
-        </form>
-        <p id="responseMessage"></p>
-    </div> 
-    <script>
-        document.getElementById("taskForm").addEventListener("submit", addTaskForm);
-        const message=document.getElementById("responseMessage");
-        async function addTaskForm(e){
-            e.preventDefault();
-            const token = localStorage.getItem("authMiddleware")?.trim();
-            if (!token) {
-                console.log("No token found, please log in again.");
-                message.textContent = "No token provided. Please log in first.";
-                return;
-            }
-            console.log("Using Token:", token);
-            const data={
-                title:document.getElementById("title").value,
-                description:document.getElementById("description").value,
-                priority:document.getElementById('priority').value,
-                status:document.getElementById('status').value,
-                completed:document.getElementById("completed").value.toLowerCase() === "true",
-                category:document.getElementById("category").value
-            };
-            try{
-                const response = await fetch("http://localhost:3000/users/tasks", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    },
-                    body: JSON.stringify(data)
-                });
-                const result= await response.json();
-                if(response.ok){
-                    message.textContent=result.message;
-                    message.style.color="green"
-                }else{
-                    message.textContent=result.message || "Something went wrong";
-                    message.style.color="red";
-                }  
-            }catch(err){
-                message.textContent="Error occured during adding task" + err.message;
-            }
-        }
-    </script>
-</body>
-</html> -->
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -162,10 +27,9 @@
     </section>
     <section class="login-page">
         <div class="access">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRH3USUjA13FEw6gL2K_CKo6JJtTm1hu53kQ&s" alt=""/>
+            <img src="https://img.freepik.com/free-vector/schedule-concept-illustration_114360-1531.jpg?ga=GA1.1.915976278.1737950981&semt=ais_hybrid"/>
             <div class="sign-in">
                 <h1>Add Tasks</h1>
-                <p>Access your account.</p>
                 <form id="taskForm">
                     <div class="input-row">
                         <div>
@@ -201,8 +65,12 @@
                 </form>
                 <p id="signupResponse"></p>
                 <p id="para">If you don't have an account? <span><a href="./sign-up.html">Ragister</a></span></p>
-                <p><input type="checkbox">I want to receive emails about events, product updates, and company announcements.</p>
+                <div class="checkbox">
+                    <input type="checkbox">
+                    <label for="">I want to receive emails about events, product updates, and company announcements.</label>
+                </div>                
                 <a href="https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?response_type=code&client_id=947255621914-38ikf80821sh1irc0lqq0o097q6bugjc.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Ftask-management-dnd.firebaseapp.com%2F__%2Fauth%2Fhandler" target="_blank">
+                   
                     <button type="button"><i class="fa-brands fa-google"></i> Login with Google</button>
                 <span><button class="btn"><a href="./sign-up.html">Creat an account </a></button>
             </div>
@@ -251,7 +119,7 @@
                 completed: document.getElementById("completed").value
             };
             try {
-                const response = await fetch("http://localhost:3000/users/tasks",{
+                const response = await fetch("http://localhost:4000/users/tasks",{
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

@@ -62,8 +62,7 @@
                     <button type="submit">Register</button>
                 </form>
                 <p id="signupResponse"></p>
-                <p id="para">Already have an account? <span><a href="./sing-in.html">Login</a></span></p>
-
+                <p id="para">Already have an account? <span><a href="./sign-in.html">Login</a></span></p>
                 <p><input type="checkbox"> I want to receive emails about events, product updates, and company announcements.</p>
                 <a href="https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?response_type=code&client_id=947255621914-38ikf80821sh1irc0lqq0o097q6bugjc.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Ftask-management-dnd.firebaseapp.com%2F__%2Fauth%2Fhandler&state=AMbdmDn7_HxpQzKOsP63b29SUIkCi2nEhPnYZF4U4f19GjlihZE8HckgSG9Iyqfj9xLBVCSZ4tGVW2zd2F4zCRPEUCIury24sdeaOAm0s4SPMCmPNsBq8vSXmOKFsRqh3A8vO98nh4EFR6oPz8OQE7TaXB-b_FPZPYu1ULiKirApV8yXBJtJZxtL0MHtSfN4AuFc_B4YAuPOsDxBO_X0_Tfu289px6w-4bPHUonEHWpQ91mbjJHtWqJO_GWRjgGwe4o405yvV5Ot7zsiYQHv4r-HDbtZ4XGS71-WAF6Xc0NBAiHKEGEG6V2M5IKpcDXq5nC8hDJzWWMDEKGnOPg&scope=openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20profile&context_uri=https%3A%2F%2Ftask-management-ruby-psi.vercel.app&service=lso&o2v=1&ddm=1&flowName=GeneralOAuthFlow" target="_blank""><button><i  class="fa-brands fa-google"></i> Login with google</button></i></a>
                 <span><button class="btn"><a href="./sign-up.html">Creat an account </a></button>
@@ -130,13 +129,13 @@ async function signupUser(e) {
     }
     const data = {
         username,
-        email,
+        email,   
         password,
         contact, 
         role
     };
     try {
-        const response = await fetch("http://localhost:3000/users/signup", {
+        const response = await fetch("http://localhost:4000/users/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

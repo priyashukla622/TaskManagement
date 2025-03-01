@@ -3,78 +3,6 @@
 <head>
   <title>User Dashboard</title>
 </head>
-<body>
-  <h2>User Dashboard</h2>
-  <div id="dashboard"></div>
-  <button onclick="logout()">Logout</button>
-  <script>
-    async function fetchUserTasks() {
-      console.log("Fetching User Tasks...");
-
-      const token = localStorage.getItem("token");
-      console.log("Token in LocalStorage:", localStorage.getItem("token"));
-      if (!token) {
-        alert("Unauthorized! Please login.");
-        window.location.href = "./index.html";
-        return;
-      }
-      try {
-        const res = await fetch("http://localhost:3000/users/user-tasks", {
-          headers: { "Authorization": `Bearer ${token}` }
-        });
-        console.log("API Response Status:", res.status);
-        
-        if (!res.ok) {
-          throw new Error(`Error ${res.status}: ${res.statusText}`);
-        }
-        const tasks = await res.json();
-        console.log("API Response Data:", tasks);
-        if (tasks.length === 0) {
-          document.getElementById("dashboard").innerHTML = "<h3>No tasks assigned.</h3>";
-          return;
-        }
-        let taskListHTML = "<h3>Your Tasks:</h3><ul>";
-        tasks.forEach(task => {
-          taskListHTML += `
-            <li>
-              <strong>Title:</strong> ${task.title} <br>
-              <strong>Description:</strong> ${task.description} <br>
-              <strong>Priority:</strong> ${task.priority} <br>
-              <strong>Status:</strong> ${task.status} <br>
-              <strong>Completed:</strong> ${task.completed ? "✅ Yes" : "❌ No"} <br>
-              <strong>Category:</strong> ${task.category} 
-              <hr>
-            </li>
-          `;
-        });
-        taskListHTML += "</ul>";
-        document.getElementById("dashboard").innerHTML = taskListHTML;
-      } catch (error) {
-        console.error("Error Fetching Tasks:", error);
-        document.getElementById("dashboard").innerHTML = `<h3>Error loading tasks</h3>`;
-      }
-    }
-    function logout() {
-      localStorage.removeItem("token");
-      localStorage.removeItem("role");
-      window.location.href = "./index.html";
-    }
-    fetchUserTasks();    
-  </script>
-</body>
-</html> -->
-
-
-
-
-
-<!-- 4836t4960056--2 -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>User Dashboard</title>
-</head>
 <body onload="fetchUserTasks()">
   <h2>User Dashboard</h2>
   <div id="dashboard"></div>
@@ -146,48 +74,42 @@
     }    
   </script>
 </body>
-</html> 
+</html>   -->
 
 
-
-
-
-<!-- 47739293-w1-2w09885 -->
-
+<!-- tr4uooqwo -->
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>User Dashboard</title>
 </head>
-<body>
+<body onload="fetchUserTasks()">
   <h2>User Dashboard</h2>
   <div id="dashboard"></div>
   <button onclick="logout()">Logout</button>
-
   <script>
     async function fetchUserTasks() {
       console.log("Fetching User Tasks...");
-      console.log(typeof fetchUserTasks);
+    
       const token = localStorage.getItem("token");
       console.log("Token in LocalStorage:", token);
     
       if (!token) {
-        alert("Unauthorized! Redirecting to login...");
+        alert("Unauthorized! Please login.");
         window.location.href = "./index.html";
         return;
       }
-    
       try {
-        const res = await fetch("http://localhost:4000/users/user-tasks", {
+        const res = await fetch("http://localhost:3000/users/user-tasks",{
           headers: { "Authorization": `Bearer ${token}` }
         });
-
+    
         console.log("API Response Status:", res.status);
     
         if (!res.ok) {
           throw new Error(`Error ${res.status}: ${res.statusText}`);
         }
-
+    
         const responseData = await res.json(); // Ensure we get a response
         console.log("API Response Data:", responseData);
     
@@ -211,30 +133,385 @@
         taskArray.forEach(task => {
           taskListHTML += `
             <li>
-              <strong>Title:</strong> ${task.title || "N/A"} <br>
-              <strong>Description:</strong> ${task.description || "N/A"} <br>
-              <strong>Priority:</strong> ${task.priority || "N/A"} <br>
-              <strong>Status:</strong> ${task.status || "N/A"} <br>
-              <strong>Completed:</strong> ${task.completed ? "✅ Yes" : "❌ No"} <br>
-              <strong>Category:</strong> ${task.category || "N/A"} 
+              <strong>Title:</strong> ${task.title} <br>
+              <strong>Description:</strong> ${task.description} <br>
+              <strong>Priority:</strong> ${task.priority} <br>
+              <strong>Status:</strong> ${task.status} <br>
+              <strong>Completed:</strong> ${task.completed ? "true" : "false"} <br>
+              <strong>Category:</strong> ${task.category} 
               <hr>
             </li>
           `;
         });
         taskListHTML += "</ul>";
+        document.getElementById("dashboard").innerHTML = taskListHTML;
+        window.onload = fetchUserTasks;
+      } catch (error) {
+        console.error("Error Fetching Tasks:", error);
+        document.getElementById("dashboard").innerHTML = `<h3>Error loading tasks</h3>`;
+      }
+    }    
+  </script>
+</body>
+</html>  -->
 
+
+
+
+<!-- jwjdiewkodsmwkjsi3jir3oesmcxdnxmzmsa, -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>User Dashboard</title>
+</head>
+<body onload="fetchUserTasks()">
+  <h2>User Dashboard</h2>
+  <div id="dashboard"></div>
+  <button onclick="logout()">Logout</button>
+  <script>
+    async function fetchUserTasks() {
+      console.log("Fetching User Tasks...");
+    
+      const token = localStorage.getItem("token");
+      console.log("Token in LocalStorage:", token);
+    
+      if (!token) {
+        alert("Unauthorized! Please login.");
+        window.location.href = "./index.html";
+        return;
+      }
+      try {
+        const res = await fetch("http://localhost:3000/users/user-tasks",{
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+    
+        console.log("API Response Status:", res.status);
+    
+        if (!res.ok) {
+          throw new Error(`Error ${res.status}: ${res.statusText}`);
+        }
+    
+        const responseData = await res.json(); // Ensure we get a response
+        console.log("API Response Data:", responseData);
+    
+        // Ensure the response contains an array
+        const taskArray = Array.isArray(responseData) ? responseData : responseData.tasks;
+        
+        if (!Array.isArray(taskArray)) {
+          console.error("Invalid Task Format:", responseData);
+          document.getElementById("dashboard").innerHTML = "<h3>Error: Invalid task data format.</h3>";
+          return;
+        }
+    
+        // If no tasks are found
+        if (taskArray.length === 0) {
+          document.getElementById("dashboard").innerHTML = "<h3>No tasks assigned.</h3>";
+          return;
+        }
+    
+        // Generate the task list HTML
+        let taskListHTML = "<h3>Your Tasks:</h3><ul>";
+        taskArray.forEach(task => {
+          taskListHTML += `
+            <li>
+              <strong>Title:</strong> ${task.title} <br>
+              <strong>Description:</strong> ${task.description} <br>
+              <strong>Priority:</strong> ${task.priority} <br>
+              <strong>Status:</strong> ${task.status} <br>
+              <strong>Completed:</strong> ${task.completed ? "true" : "false"} <br>
+              <strong>Category:</strong> ${task.category} 
+              <hr>
+            </li>
+          `;
+        });
+        taskListHTML += "</ul>";
+        document.getElementById("dashboard").innerHTML = taskListHTML;
+        window.onload = fetchUserTasks;
+      } catch (error) {
+        console.error("Error Fetching Tasks:", error);
+        document.getElementById("dashboard").innerHTML = `<h3>Error loading tasks</h3>`;
+      }
+    }    
+  </script>
+</body>
+</html>  -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Task</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="getTask.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <section class="header">
+    <h3>Task Management</h3>
+    <ul>
+      <li><a href="Home.html">Home</a></li>
+      <li><a href="About.html">About Us</a></li>
+      <li><a href="Contact.html">Contact</a></li>
+      <li><a href="task.html">Task</a></li>
+      <li><a href="getTask.html">Get Task</a></li>
+      <li><a href="adminTask.html">Admin Task</a></li>
+    </ul>
+    <div class="button">
+      <button class="btn_2" onclick="logout()">Logout</button>
+    </div>
+  </section>
+  <section class="login-page">
+    <div class="access">
+      <div class="sign-in">
+        <h1>Only users can access this page.</h1>
+        <h2>User<span>Dashbord</span></h2>
+        <div id="dashboard"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-link">
+      <ul>
+        <li>Shop</li>
+        <li>About</li>
+        <li>Blog</li>
+        <li>Pricing</li>
+        <li>Contact</li>
+      </ul>
+    </div>
+    <div>
+      <span>@2023-Task Management: All rights reserved by Fazlul Karim</span>
+    </div>
+    <div class="icon">
+      <a href="https://www.codechef.com/users/priya_shukla" target="_blank"><i class="fa-brands fa-codepen"></i></a>
+      <a href="https://www.linkedin.com/in/priya-shukla-b0a943280/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://twitter.com/home?lang=en" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+      <a href="https://github.com/priyashukla622" target="_blank"><i class="fa-brands fa-github"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    async function fetchUserTasks() {
+      console.log("Fetching User Tasks...");
+
+      const token = localStorage.getItem("token");
+      console.log("Token in LocalStorage:", token);
+
+      if (!token) {
+        alert("Unauthorized! Please login.");
+        window.location.href = "./index.html";
+        return;
+      }
+      try {
+        const res = await fetch("http://localhost:4000/users/user-tasks", {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        console.log("API Response Status:", res.status);
+
+        if (!res.ok) {
+          throw new Error(`Error ${res.status}: ${res.statusText}`);
+        }
+        const responseData = await res.json();
+        console.log("API Response Data:", responseData);
+
+        if (!responseData || !Array.isArray(responseData.tasks)) {
+          console.error("Invalid response format:", responseData);
+          document.getElementById("dashboard").innerHTML = "<h3>Error: Invalid task data format.</h3>";
+          return;
+        }
+
+        const taskArray = responseData.tasks;
+
+        if (taskArray.length === 0) {
+          document.getElementById("dashboard").innerHTML = "<h3>No tasks assigned.</h3>";
+          return;
+        }
+        let taskListHTML = `
+          <table border="1" cellspacing="0" cellpadding="8">
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th>Completed</th>
+              <th>Category</th>
+            </tr>
+        `;
+        taskArray.forEach(task => {
+          taskListHTML += `
+            <tr>
+              <td>${task.title}</td>
+              <td>${task.description}</td>
+              <td>${task.priority}</td>
+              <td>${task.status}</td>
+              <td>${task.completed ? "true":"false"}</td>
+              <td>${task.category}</td>
+            </tr>
+          `;
+        });
+        taskListHTML += `</table>`;
         document.getElementById("dashboard").innerHTML = taskListHTML;
       } catch (error) {
         console.error("Error Fetching Tasks:", error);
         document.getElementById("dashboard").innerHTML = `<h3>Error loading tasks</h3>`;
       }
     }
-
     function logout() {
       localStorage.removeItem("token");
-      window.location.href = "./index.html";
+      alert("Logged out successfully!");
+      window.location.href = "sign-in.html";
     }
-    fetchUserTasks()
+    window.onload = fetchUserTasks;
   </script>
 </body>
-</html> -->
+</html>
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Task</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="getTask.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <section class="header">
+    <h3>Task Management</h3>
+    <ul>
+        <a href="Home.html"><li>Home</li></a>
+        <a href="About.html"><li>About Us</li></a>
+        <a href="Contact.html"><li>Contact</li></a>
+        <a href="task.html"><li>Task</li></a>
+        <a href="getTask.html"><li>Get Task</li></a>
+        <a href="adminTask.html"><li>AdminTask</li></a>
+    </ul>
+    <div class="button">
+        <button class="btn_2" onclick="logout()">logout</button>
+    </div>
+</section>
+<section class="login-page">
+  <div class="access">
+      <div class="sign-in">
+          <h1>only user can access this page.</h1>
+          <form id="loginForm">
+            <h2>User Dashboard</h2>
+            <div id="dashboard"></div>
+          </form>
+          <p id="signupResponse"></p> 
+      </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-link">
+      <ul>
+          <li>Shop</li>
+          <li>About</li>
+          <li>Blog</li>
+          <li>Pricing</li>
+          <li>Contact</li>
+      </ul>
+  </div>
+  <div class="">
+      <span>@2023-Task Management: All rights reserved by Fazlul Karim</span>
+  </div>
+  <div class="icon">
+      <a href="https://www.codechef.com/users/priya_shukla" target="_blank"><i class="fa-brands fa-codepen"></i></a>
+      <a href="https://www.linkedin.com/in/priya-shukla-b0a943280/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="https://twitter.com/home?lang=en" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+      <a href="https://github.com/priyashukla622" target="_blank"><i class="fa-brands fa-github"></i></a>
+  </div>
+</footer>
+<script>
+  async function fetchUserTasks() {
+    console.log("Fetching User Tasks...");
+  
+    const token = localStorage.getItem("token");
+    console.log("Token in LocalStorage:", token);
+  
+    if (!token) {
+      alert("Unauthorized! Please login.");
+      window.location.href = "./index.html";
+      return;
+    }
+    try {
+      const res = await fetch("http://localhost:3000/users/user-tasks",{
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+  
+      console.log("API Response Status:", res.status);
+  
+      if (!res.ok) {
+        throw new Error(`Error ${res.status}: ${res.statusText}`);
+      }
+  
+      const responseData = await res.json();
+      console.log("API Response Data:", responseData);
+
+      // Ensure API is returning a valid array
+      if (!responseData || !Array.isArray(responseData)) {
+        console.error("Invalid response format:", responseData);
+        document.getElementById("dashboard").innerHTML = "<h3>Error: Invalid task data format.</h3>";
+        return;
+      }
+
+      // If no tasks are found
+      if (responseData.length === 0) {
+        document.getElementById("dashboard").innerHTML = "<h3>No tasks assigned.</h3>";
+        return;
+      }
+
+      // ✅ Show tasks in a TABLE format
+      let taskListHTML = `
+        <h3>Your Tasks:</h3>
+        <table border="1" cellspacing="0" cellpadding="8">
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Completed</th>
+            <th>Category</th>
+          </tr>
+      `;
+
+      responseData.forEach(task => {
+        taskListHTML += `
+          <tr>
+            <td>${task.title}</td>
+            <td>${task.description}</td>
+            <td>${task.priority}</td>
+            <td>${task.status}</td>
+            <td>${task.completed ? "✅" : "❌"}</td>
+            <td>${task.category}</td>
+          </tr>
+        `;
+      });
+
+      taskListHTML += `</table>`;
+      document.getElementById("dashboard").innerHTML = taskListHTML;
+    } catch (error) {
+      console.error("Error Fetching Tasks:", error);
+      document.getElementById("dashboard").innerHTML = `<h3>Error loading tasks</h3>`;
+    }
+  }
+
+  // ✅ Ensure function runs on page load
+  window.onload = fetchUserTasks;
+</script>
+</body>
+</html>  -->

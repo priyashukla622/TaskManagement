@@ -1,4 +1,133 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="sign-in.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <section class="header">
+        <h3>Task Management</h3>
+        <ul>
+            <a href="Home.html"><li>Home</li></a>
+            <a href="About.html"><li>About Us</li></a>
+            <a href="Contact.html"><li>Contact</li></a>
+            <a href="task.html"><li>Task</li></a>
+            <a href="getTask.html"><li>Get Task</li></a>
+            <a href="adminTask.html"><li>AdminTask</li></a>
+        </ul>
+        <div class="button">
+            <button class="btn_1"><a href="sign-in.html">Sign In</a></button>
+            <button class="btn_2"><a href="sign-up.html">Sign Up</a></button>
+        </div>
+    </section>
+    <section class="login-page">
+        <div class="access">
+            <img src="https://task-management-ruby-psi.vercel.app/assets/signin-UiOJi2Xf.jpg" alt="">
+            <div class="sign-in">
+                <h1>Sign In to access your account.</h1>
+                <p>You can access many features by signing in and explore the dashboard.</p>
+                <form id="loginForm">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Email" required><br/>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Password" required><br/>
+                    <button type="submit">Login</button>
+                </form>
+                <p id="signupResponse"></p> 
+                <p id="para">If you don't have an account? <span><a href="./sign-up.html">Ragister</a></span></p>
+                <p><input type="checkbox"> I want to receive emails about events, product updates, and company announcements.</p>
+                <a href="https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?response_type=code&client_id=947255621914-38ikf80821sh1irc0lqq0o097q6bugjc.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Ftask-management-dnd.firebaseapp.com%2F__%2Fauth%2Fhandler" target="_blank">
+                    <button type="button"><i class="fa-brands fa-google"></i> Login with Google</button>
+                <span><button class="btn"><a href="./sign-up.html">Creat an account </a></button>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-link">
+            <ul>
+                <li>Shop</li>
+                <li>About</li>
+                <li>Blog</li>
+                <li>Pricing</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+        <div class="">
+            <span>@2023-Task Management: All rights reserved by Fazlul Karim</span>
+        </div>
+        <div class="icon">
+            <a href="https://www.codechef.com/users/priya_shukla" target="_blank"><i class="fa-brands fa-codepen"></i></a>
+            <a href="https://www.linkedin.com/in/priya-shukla-b0a943280/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://twitter.com/home?lang=en" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://github.com/priyashukla622" target="_blank"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("DOM Loaded");
+            document.getElementById("loginForm").addEventListener("submit", submitLogin);
+        });
 
+        const message = document.getElementById("signupResponse");
+
+        async function submitLogin(e) {
+            e.preventDefault();  
+            console.log("submitLogin function is called");  
+            
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            
+            console.log("Data before sending:", { email, password });  
+
+            try {
+                const response = await fetch("http://localhost:4000/users/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const result = await response.json();
+
+                console.log("Response Status:", response.status);
+                console.log("Response Data:", result);
+
+                if (response.ok) {
+                    localStorage.setItem("authMiddleware", result.token);
+                    localStorage.setItem("role", result.role);
+                    localStorage.setItem("token", result.token);
+
+                    console.log("Token Stored Successfully:", localStorage.getItem("token"));
+
+                    message.textContent = "Login successfully";
+                    message.style.color = "green";
+
+                    setTimeout(() => {
+                        if (result.role === "admin") {
+                            window.location.href = "./adminTask.html";
+                        } else {
+                            window.location.href = "./getTask.html";
+                        }
+                    }, 1000);
+                } else {
+                    message.textContent = result.message;
+                    message.style.color = "red";
+                }
+            } catch (error) {
+                console.error("Login Error:", error);
+                message.textContent = "Error during login. Please try again!";
+                message.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html> -->
 
 
 
@@ -71,28 +200,22 @@
             <a href="https://github.com/priyashukla622" target="_blank"><i class="fa-brands fa-github"></i></a>
         </div>
     </footer>
-
-    <!-- ✅ Script Moved to End -->
     <script>
-        // ✅ Ensure the script runs after DOM is fully loaded
-        document.addEventListener("DOMContentLoaded", function () {
-            console.log("DOM Loaded");
-            document.getElementById("loginForm").addEventListener("submit", submitLogin);
-        });
+        document.getElementById("loginForm").addEventListener("submit", submitLogin);
 
         const message = document.getElementById("signupResponse");
 
         async function submitLogin(e) {
             e.preventDefault();  
-            console.log("✅ submitLogin function is called");  // Debugging Log
+            console.log("submitLogin function is called");  
             
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             
-            console.log("🛠️ Data before sending:", { email, password });  
+            console.log("Data before sending:", { email, password });  
 
             try {
-                const response = await fetch("http://localhost:3000/users/login", {
+                const response = await fetch("http://localhost:4000/users/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -102,32 +225,25 @@
 
                 const result = await response.json();
 
-                console.log("📨 Response Status:", response.status);
-                console.log("📨 Response Data:", result);
+                console.log("Response Status:", response.status);
+                console.log("Response Data:", result);
 
                 if (response.ok) {
                     localStorage.setItem("authMiddleware", result.token);
                     localStorage.setItem("role", result.role);
                     localStorage.setItem("token", result.token);
 
-                    console.log("✅ Token Stored Successfully:", localStorage.getItem("token"));
+                    console.log("Token Stored Successfully:", localStorage.getItem("token"));
 
                     message.textContent = "Login successfully";
                     message.style.color = "green";
 
-                    setTimeout(() => {
-                        if (result.role === "admin") {
-                            window.location.href = "./adminTask.html";
-                        } else {
-                            window.location.href = "./getTask.html";
-                        }
-                    }, 1000);
                 } else {
-                    message.textContent = "❌ " + result.message;
+                    message.textContent = result.message;
                     message.style.color = "red";
                 }
             } catch (error) {
-                console.error("❌ Login Error:", error);
+                console.error("Login Error:", error);
                 message.textContent = "Error during login. Please try again!";
                 message.style.color = "red";
             }
