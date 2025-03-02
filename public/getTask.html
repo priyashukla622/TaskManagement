@@ -310,12 +310,10 @@
         return;
       }
       try {
-        const res = await fetch("https://taskmanagement-42ln.onrender.com/users/user-tasks", {
+        const res = await fetch("https://taskmanage-6dt1.onrender.com/users/user-tasks", {
           headers: { "Authorization": `Bearer ${token}` }
         });
-
         console.log("API Response Status:", res.status);
-
         if (!res.ok) {
           throw new Error(`Error ${res.status}: ${res.statusText}`);
         }
@@ -327,7 +325,6 @@
           document.getElementById("dashboard").innerHTML = "<h3>Error: Invalid task data format.</h3>";
           return;
         }
-
         const taskArray = responseData.tasks;
 
         if (taskArray.length === 0) {
