@@ -209,7 +209,8 @@
             e.preventDefault();  
             console.log("submitLogin function is called");  
             
-            const email = document.getElementById("email").value;
+            const email = document.getElementById("email").value.trim().toLowerCase();
+
             const password = document.getElementById("password").value;
             
             console.log("Data before sending:", { email, password });  
@@ -224,7 +225,7 @@
                 });
 
                 const result = await response.json();
-
+                console.log(response)
                 console.log("Response Status:", response.status);
                 console.log("Response Data:", result);
 

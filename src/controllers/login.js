@@ -91,7 +91,7 @@
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/userModel');
+const  userModel= require('../models/userModel');
 
 const validateEmail = (email) => {
     const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -108,18 +108,19 @@ const login = async (req, res) => {
 
     try {
         // ✅ Step 2: Find the user by email
-        const user = await User.findOne({ email });
+        // const user = await userModel.findOne({email });
+        const user = await userModel.findOne({ email: email.toLowerCase() });
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
+        console.log(user)
 
         // ✅ Step 3: Check user role
         if (user.role !== 'admin' && user.role !== 'user') {
             return res.status(403).json({ message: "Access denied for this role" });
         }
 
-        // ✅ Step 4: Check password
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (!isPasswordValid) {
@@ -132,15 +133,15 @@ const login = async (req, res) => {
             process.env.JWT_SECRET, 
             { expiresIn: '1h' },
         );
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);  // ✅ Decode the token
+        console.log("JWT Secret:", process.env.JWT_SECRET); 
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);  
         console.log("Decoded Token:", decoded);
         console.log("Token Expiry:", new Date(decoded.exp * 1000));
 
-        // ✅ Step 6: Send response with userId
         res.status(200).json({
             message: "Login successful",
             token,
-            userId: user._id,  // ✅ Ye frontend me useful hoga
+            userId: user._id,  
             role: user.role
         });
 
