@@ -105,7 +105,7 @@
                     console.log("Token from API:", result.token);
                     message.textContent = "Login successfully";
                     message.style.color = "green";
-                    
+                    window.location.href = "./index.html";
                 } else {
                     message.textContent = result.message;
                     message.style.color = "red";
