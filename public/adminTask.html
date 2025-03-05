@@ -1,12 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="getTask.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Admin Dashboard</title>
 </head>
 <body>
-  <h2>Admin Dashboard</h2>
-  <div id="dashboard"></div>
-  <button onclick="logout()">Logout</button>
+    <section class="header">
+        <h3>Task Management</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="task.html">Task</a></li>
+          <li><a href="getTask.html">Get Task</a></li>
+          <li><a href="adminTask.html">Admin Task</a></li>
+        </ul>
+        <div class="button">
+          <button class="btn_2" onclick="logout()">Logout</button>
+        </div>
+      </section>
+      <section class="login-page">
+        <div class="access">
+          <div class="sign-in">
+            <h2>Admin<span>Dashbord</span></h2>
+            <div id="dashboard"></div>
+          </div>
+        </div>
+      </section>
+      <footer>
+        <div class="footer-link">
+          <ul>
+            <li>Shop</li>
+            <li>About</li>
+            <li>Blog</li>
+            <li>Pricing</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+        <div>
+          <span>@2023-Task Management: All rights reserved by Fazlul Karim</span>
+        </div>
+        <div class="icon">
+          <a href="https://www.codechef.com/users/priya_shukla" target="_blank"><i class="fa-brands fa-codepen"></i></a>
+          <a href="https://www.linkedin.com/in/priya-shukla-b0a943280/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="https://twitter.com/home?lang=en" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+          <a href="https://github.com/priyashukla622" target="_blank"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </footer>
   <script>
     async function fetchAdminTasks() {
       console.log("fetchAdminTasks() function called...");
@@ -47,6 +93,7 @@
           if (res.status === 404) {
               console.error("No tasks found.");
               document.getElementById("dashboard").innerHTML = "<h3>No tasks available.</h3>";
+              alert("only admin can see all task")
               return;
           }
   

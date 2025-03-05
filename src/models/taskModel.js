@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const taskSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -9,15 +8,6 @@ const taskSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-//   userId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: 'User',
-//     required: true,
-//   },
-// email:{
-//     type:String,
-//     required:true
-// },
   completed: {
     type: Boolean,
     default: false,

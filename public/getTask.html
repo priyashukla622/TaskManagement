@@ -14,9 +14,9 @@
   <section class="header">
     <h3>Task Management</h3>
     <ul>
-      <li><a href="Home.html">Home</a></li>
-      <li><a href="About.html">About Us</a></li>
-      <li><a href="Contact.html">Contact</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li>
       <li><a href="task.html">Task</a></li>
       <li><a href="getTask.html">Get Task</a></li>
       <li><a href="adminTask.html">Admin Task</a></li>
@@ -28,7 +28,6 @@
   <section class="login-page">
     <div class="access">
       <div class="sign-in">
-        <h1>Only users can access this page.</h1>
         <h2>User<span>Dashbord</span></h2>
         <div id="dashboard"></div>
       </div>
@@ -46,7 +45,7 @@
       </ul>
     </div>
     <div>
-      <span>@2023-Task Management: All rights reserved by Fazlul Karim</span>
+      <span>@2023-Task Management: All rights reserved by Rock</span>
     </div>
     <div class="icon">
       <a href="https://www.codechef.com/users/priya_shukla" target="_blank"><i class="fa-brands fa-codepen"></i></a>
@@ -88,6 +87,7 @@
 
         if (taskArray.length === 0) {
           document.getElementById("dashboard").innerHTML = "<h3>No tasks assigned.</h3>";
+          alert("Only user can access this page.")
           return;
         }
         let taskListHTML = `

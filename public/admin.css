@@ -1,13 +1,15 @@
 *{
     padding: 0;
     margin: 0;
+    font-family: 'Arial Narrow', Arial, sans-serif;
 }
 .header {
-    margin: 0px 20px;
+    margin:0px 20px;
     padding: 15px 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color:rgb(100, 187, 131)
 }
 a{
     text-decoration: none;
@@ -42,18 +44,10 @@ ul span {
 .btn_2 {
     font-size: 15px;
     height: 40px;
-    width: 100%;
+    width: 60%;
     border-style: none;
     border-radius: 5px;
-}
-.header .btn_1 {
-    border: 1px solid rgb(14, 165, 233);
-    background-color: white;
-    color: rgb(14, 165, 233);
-}
-.header .btn_1:hover {
-    background-color: rgb(14, 165, 233);
-    color: white;
+    cursor: pointer;
 }
 .header .btn_2 {
     border: 1px solid rgb(34, 197, 94);
@@ -80,8 +74,13 @@ ul span {
      margin-left: 80px;
 }
 .sign-in h1{
-    font-size: 40px;
+    font-size: 30px;
 }
+.sign-in h2{
+    text-align: center;
+    margin-left:480px;
+}
+
 .sign-in p{
     font-size: 18px;
     margin-top: 10px;
@@ -96,10 +95,6 @@ ul span {
     font-size: 15px;
     margin-bottom: 10px;
 }
-.sign-in button:hover{
-    background-color: rgb(2,84,183);
-    color: white;
-}
 input[type="email"], input[type="password"]{
     width: 98%;
     height: 35px;
@@ -109,7 +104,7 @@ input[type="email"], input[type="password"]{
 }
 span .btn {
     border: 1px solid grey;
-    padding: 10px  140px;
+    padding: 13px 160px;
     border-radius: 5px;
     font-size: 15px;
     margin-bottom: 10px;
@@ -120,6 +115,9 @@ span .btn {
 #para span a{
     color: blue;
 }
+#loginForm h2{
+    font-size: 28px;
+}
 #signupResponse{
     margin-top: 10px;
     font-size: 25px;
@@ -128,27 +126,30 @@ span .btn {
     text-align: center;
     display: block; 
 }
-.eye-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 450px;
-}
-input[type="password"], input[type="text"] {
+table {
     width: 100%; 
-    height: 40px;
-    padding-right: 40px; 
-    font-size: 16px;
-    box-sizing: border-box;
+    border-collapse: collapse; 
+    margin-top: 10px;
+    font-size: 18px;
+    margin-left:250px;
 }
-#toggleIcon {
-    position: absolute;
-    right: 10px;
-    cursor: pointer;
+th {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 20px;
+    padding: 12px;
+    text-align: left;
 }
-button {
-    margin-top:10px;
+td {
+    background-color: #f9f9f9;
+    padding: 12px;
+    border: 2px solid black;
+    text-align: left;
 }
+#dashboard {
+    max-height: 500px; 
+}
+
 footer {
     display: flex;
     justify-content: space-between;
@@ -156,6 +157,7 @@ footer {
     font-weight: bolder;
     font-size: 15px;
     padding: 40px;
+    background-color: gainsboro
 }
 .footer-link ul {
     display: flex;
