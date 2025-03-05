@@ -93,12 +93,10 @@
                     },
                     body: JSON.stringify({ email, password })
                 });
-
                 const result = await response.json();
                 console.log(response)
                 console.log("Response Status:", response.status);
                 console.log("Response Data:", result);
-
                 if (response.ok) {
                     localStorage.setItem("authMiddleware", result.token);
                     localStorage.setItem("role", result.role);
