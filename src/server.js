@@ -41,18 +41,13 @@ const mongoURI = process.env.MONGODB_URL;
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-//     serverSelectionTimeoutMS: 50000, 
-//     connectTimeoutMS: 60000,
 }).then(() => {
     console.log("MongoDB Connected Successfully!");
-    console.log("MongoDB URI:", process.env.MONGODB_URL);
 
 }).catch((err) => {
     console.error("MongoDB Connection Error:", err);
 });
 mongoose.set("bufferCommands", false);
-
-
 app.use(express.json());
 // app.use(cors());
 app.use(cors({ origin: '*' }));

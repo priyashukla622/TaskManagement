@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="getTask.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css"/>
+    <title>Admin Dashboard</title>
 </head>
 <body>
     <section class="header">
@@ -24,118 +21,120 @@
         <div class="button">
           <button class="btn_2" onclick="logout()">Logout</button>
         </div>
-      </section>
-      <section class="login-page">
-        <div class="access">
-          <div class="sign-in">
-            <h2>Admin<span>Dashbord</span></h2>
-            <div id="dashboard"></div>
-          </div>
-        </div>
-      </section>
-      <footer>
+    </section>
+    <section class="login-page">
+            <div class="sign-in">
+                <h2>Admin Dashboard </h2>
+                <div id="dashboard"></div>
+            </div>
+    </section>
+    <footer>
         <div class="footer-link">
-          <ul>
-            <li>Shop</li>
-            <li>About</li>
-            <li>Blog</li>
-            <li>Pricing</li>
-            <li>Contact</li>
-          </ul>
+            <ul>
+                <li>Shop</li>
+                <li>About</li>
+                <li>Blog</li>
+                <li>Pricing</li>
+                <li>Contact</li>
+            </ul>
         </div>
         <div>
-          <span>@2023-Task Management: All rights reserved by Fazlul Karim</span>
+            <span>@2023-Task Management: All rights reserved by Rock</span>
         </div>
         <div class="icon">
-          <a href="https://www.codechef.com/users/priya_shukla" target="_blank"><i class="fa-brands fa-codepen"></i></a>
-          <a href="https://www.linkedin.com/in/priya-shukla-b0a943280/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-          <a href="https://twitter.com/home?lang=en" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-          <a href="https://github.com/priyashukla622" target="_blank"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.codechef.com/users/priya_shukla" target="_blank"><i class="fa-brands fa-codepen"></i></a>
+            <a href="https://www.linkedin.com/in/priya-shukla-b0a943280/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://twitter.com/home?lang=en" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://github.com/priyashukla622" target="_blank"><i class="fa-brands fa-github"></i></a>
         </div>
-      </footer>
-  <script>
-    async function fetchAdminTasks() {
-      console.log("fetchAdminTasks() function called...");
+    </footer>
+    <script>
+      async function fetchAdminTasks() {
+          console.log("fetchAdminTasks() function called...");
   
-      const token = localStorage.getItem("token");
-      console.log("LocalStorage Token:", token); 
+          const token = localStorage.getItem("token");
+          console.log("LocalStorage Token:", token);
   
-      if (!token) {
-          console.error("Token missing! Redirecting to login...");
-          alert("Unauthorized! Please login.");
-          window.location.href = "./index.html";
-          return;
-      }
-      try {
-          console.log("Sending API request to /users/all-tasks...");
-          const res = await fetch("https://taskmanagement-42ln.onrender.com/users/user-tasks/users/all-tasks", {
-              method: "GET",
-              headers: {
-                  "Authorization": `Bearer ${token}`,
-                  "Content-Type": "application/json"
-              }
-          });
-          console.log("Response Status:", res.status);
-          if (res.status === 401) {
-              console.error("Unauthorized! Token might be invalid.");
-              alert("Session expired! Please login again.");
-              localStorage.removeItem("token");
+          if (!token) {
+              console.error("Token missing! Redirecting to login...");
+              alert("Unauthorized! Please login.");
               window.location.href = "./index.html";
               return;
           }
+          try {
+              console.log("Sending API request to /users/all-tasks...");
+              const res = await fetch("https://taskmanage-6dt1.onrender.com/users/all-tasks", {
+                  method: "GET",
+                  headers: {
+                      "Authorization": `Bearer ${token}`,
+                      "Content-Type": "application/json"
+                  }
+              });
+              if (!res.ok) {
+                  throw new Error(`HTTP error! Status: ${res.status}`);
+              }
+              const data = await res.json();
+              console.log("Full API Response:", data);
   
-          if (res.status === 403) {
-              console.error("Access Denied: Only admins can view tasks.");
-              alert("Access Denied: Only admins can view tasks.");
-              return;
+              if (!data || !Array.isArray(data.tasks)) {
+                  console.error("Unexpected API response:", data);
+                  document.getElementById("dashboard").innerHTML = "<h3>Error: Invalid API response</h3>";
+                  return;
+              }
+              let taskTableHTML = `
+                  <h3>All User Tasks</h3>
+                  <table border="1" cellspacing="0" cellpadding="5">
+                          <tr>
+                              <th>Title</th>
+                              <th>Description</th>
+                              <th>Priority</th>
+                              <th>Status</th>
+                              <th>Completed</th>
+                              <th>Category</th>
+                              <th>User Email</th>
+                          </tr>`;
+              data.tasks.forEach(task => {
+                  taskTableHTML += `
+                      <tr>
+                          <td>${task.title}</td>
+                          <td>${task.description}</td>
+                          <td>${task.priority}</td>
+                          <td>${task.status}</td>
+                          <td>${task.completed ? "True" : "False"}</td>
+                          <td>${task.category}</td>
+                          <td>${task.userId?.email || "N/A"}</td>
+                      </tr>
+                  `;
+              });
+              taskTableHTML += `</table>`;
+              document.getElementById("dashboard").innerHTML = taskTableHTML;
+          } catch (error) {
+              console.error("Error fetching tasks:", error);
+              document.getElementById("dashboard").innerHTML = "<h3>Error loading tasks</h3>";
           }
-  
-          if (res.status === 404) {
-              console.error("No tasks found.");
-              document.getElementById("dashboard").innerHTML = "<h3>No tasks available.</h3>";
-              alert("only admin can see all task")
-              return;
-          }
-  
-          if (!res.ok) {
-              throw new Error(`HTTP error! Status: ${res.status}`);
-          }
-  
-          const data = await res.json();
-          console.log("Full API Response:", data);
-  
-          if (!data || !Array.isArray(data.tasks)) {
-              console.error("Unexpected API response:", data);
-              document.getElementById("dashboard").innerHTML = "<h3>Error: Invalid API response</h3>";
-              return;
-          }
-  
-          let taskListHTML = "<h3> All User Tasks:</h3><ul>";
-          data.tasks.forEach(task => {
-              taskListHTML += `<li>
-                  <strong>Title:</strong> ${task.title} <br>
-                  <strong>Description:</strong> ${task.description} <br>
-                  <strong>Priority:</strong> ${task.priority} <br>
-                  <strong>Status:</strong> ${task.status} <br>
-                  <strong>Completed:</strong> ${task.completed ? "Yes" : "No"} <br>
-                  <strong>Category:</strong> ${task.category} <br>
-                  <strong>User:</strong> ${task.userId?.email || "N/A"} 
-                  <hr>
-              </li>`;
-          });
-          taskListHTML += "</ul>";
-  
-          document.getElementById("dashboard").innerHTML = taskListHTML;
-      } catch (error) {
-          console.error("Error fetching tasks:", error);
-          document.getElementById("dashboard").innerHTML = "<h3>Error loading tasks</h3>";
       }
-  }
-  
-  window.onload = () => {
-      console.log("Window loaded, calling fetchAdminTasks...");
-      fetchAdminTasks();
-  };
+      window.onload = () => {
+          console.log("Window loaded, calling fetchAdminTasks...");
+          fetchAdminTasks();
+      };
+      function logout() {
+          localStorage.removeItem("token");
+          alert("Logged out successfully!");
+          window.location.href = "./index.html";
+      }
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+

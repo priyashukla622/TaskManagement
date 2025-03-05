@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
     <section class="header">
         <h3>Task Management</h3>
-        <ul>
+        <div class="menu-bar" onclick="toggleMenu()">☰</div>
+        <ul class="nav-links">
             <li><span><a href="index.html">Home</a></span></li>
             <li><a href="about.html">About Us</a></li>
             <li><a href="contact.html">Contact</a></li>
@@ -21,9 +22,12 @@
             <li><a href="getTask.html">Get Task</a></li>
             <li><a href="adminTask.html">AdminTask</a></li>
         </ul>
+            <!-- <div class="hamburger" onclick="toggleMenu()">
+                <i class="fa-solid fa-bars"></i> 
+            </div> -->
         <div class="button">
             <button class="btn_2"><a href="sign-up.html">Sign Up</a></button>
-            <button class="btn_1"><a href="sign-in.css">Sign In</a></button>
+            <button class="btn_1"><a href="sign-in.html">Sign In</a></button>
         </div>
     </section>
     <section class="main">
@@ -117,5 +121,11 @@
             <a href="https://github.com/priyashukla622"><i class="fa-brands fa-github" target="_blank"></i></a>
         </div>
     </footer>
+    <script>
+        function toggleMenu() {
+            let navLinks = document.querySelector(".nav-links");
+            navLinks.classList.toggle("active");
+        }
+    </script>
 </body>
 </html>
